@@ -1,0 +1,2 @@
+<app-details-party *ngFor="let party of parties; let i = index"
+[party]="party" (reservePlace)="onReserved($event)"></app-details-party>

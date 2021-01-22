@@ -1,0 +1,40 @@
+<mat-card class="custom"
+[ngClass]="{'background-orange': (_party.nb_place > 0 && _party.nb_place < 40),
+  'background-vert': (_party.nb_place > 40 && _party.nb_place < 100),
+  'background-jaune': (_party.nb_place > 100)}">
+  <mat-list role="list">
+    <mat-list-item role="listitem">{{_party?.title}}</mat-list-item>
+    <mat-list-item role="listitem">
+      <strong>Date: </strong> {{_party?.date}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <strong>Type: </strong> {{_party?.type}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <strong>Nombre de places: </strong> {{_party?.nb_place}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <strong>Nombre de places disponibles: </strong> {{nbrePlacesDispo}}
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <strong>description: </strong> {{_party?.description}}
+    </mat-list-item>
+    <mat-list-item>
+      <button mat-raised-button (click)="hideReservation = !hideReservation"
+      [disabled]="nbrePlacesDispo===0">Réserver</button>
+    </mat-list-item>
+    <mat-list-item role="listitem" *ngIf="!hideReservation  && nbrePlacesDispo > 0">
+      Nombre de places à réserver:
+    </mat-list-item>
+    <mat-list-item *ngIf="!hideReservation && nbrePlacesDispo > 0">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput [formControl]="nbreReservations"
+          placeholder="saisir un nombre" required>
+          <mat-error *ngIf="nbreReservations.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <button mat-raised-button (click)="reserve()">Valider</button>
+      </form>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
